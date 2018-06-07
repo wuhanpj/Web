@@ -35,7 +35,7 @@ public class TimeClient {
             });
 
             // Start the client.
-            ChannelFuture cf = b.connect("127.0.0.1", 8080).sync(); // (5)
+            ChannelFuture cf = b.connect("s1.natapp.cc", 1981).sync(); // (5)
             
             cf.channel().writeAndFlush(Unpooled.copiedBuffer("wb1234567890".getBytes()));
 

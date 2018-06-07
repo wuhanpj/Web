@@ -1,7 +1,7 @@
 package netty.time.Web.NettyClient;
 
-import java.io.IOException;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.CharsetUtil;
@@ -22,8 +22,11 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
         try {
         	// 接收服务器传来的指令打印出来 
 			String str = m.toString(CharsetUtil.UTF_8);
-        	System.out.println("收到服务端的指令-----" + str);
-        	GatewayService.setCtx(ctx);
+        	System.out.println("收到服务端的消息-----" + str);
+        	if(str.equals("Server ok!!!")) {
+        		GatewayService.setCtx(ctx);
+        	}
+        	ctx.writeAndFlush(Unpooled.copiedBuffer("Client ok!!!".getBytes()));
 		} finally {
             m.release();
         }
